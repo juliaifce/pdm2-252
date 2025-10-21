@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+  runApp(const MeuApp());
+}
+
+class MeuApp extends StatefulWidget {
+  const MeuApp({super.key});
+
+  @override
+  MeuAppState createState() => MeuAppState();
+}
+
+class MeuAppState extends State<MeuApp> {
+  final Random _random = Random();
+  double _buttonLeft = 100.0;
+  double _buttonTop = 200.0;
+
+  void _moveButton() {
+    setState(() {
+      _buttonLeft =
+          _random.nextDouble() * (MediaQuery.of(context).size.width - 100);
+      _buttonTop =
+          _random.nextDouble() * (MediaQuery.of(context).size.height - 100);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Botão')),
+        body: Stack(
+          children: [
+            Positioned(
+              left: _buttonLeft,
+              top: _buttonTop,
+              child: ElevatedButton(
+                onPressed: _moveButton,
+                child: const Text('Clique'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
